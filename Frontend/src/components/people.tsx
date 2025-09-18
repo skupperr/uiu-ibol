@@ -38,7 +38,7 @@ const People = () => {
         const fetchRoles = async () => {
             try {
                 const data = await makeRequest("roles");
-                console.log(data.roles);
+                
                 if (data.status === "success") {
                     setRoles(
                         data.roles.map((r: any) => ({
@@ -156,7 +156,7 @@ const People = () => {
         try {
             const data = await makeRequest("users/unassigned", { method: "GET" });
             if (data.status === "success") {
-                console.log(data.users);
+                
                 setAvailableUsers(data.users);
             }
         } catch (err) {
