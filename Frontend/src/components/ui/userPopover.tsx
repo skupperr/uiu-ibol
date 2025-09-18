@@ -36,7 +36,7 @@ const UserPopover = ({ user }: { user: any }) => {
             <button
                 ref={buttonRef}
                 onClick={() => setIsOpen(!isOpen)}
-                className="rounded-full mt-2 w-10 h-10 overflow-hidden mr-2"
+                className="rounded-full mt-2 w-10 h-10 overflow-hidden mr-4"
             >
                 <Image
                     src={user.img_link || "/images/default-avatar.png"}
