@@ -11,7 +11,7 @@ _pool: Optional[aiomysql.Pool] = None
 
 DB_CONFIG = {
     "host": os.getenv('HOST'),
-    "port": int(os.getenv('PORT')),
+    "port": int(os.getenv('DB_PORT')),
     "user": os.getenv('USER'),
     "password": os.getenv('PASSWORD'),
     "db": os.getenv('DB'),
