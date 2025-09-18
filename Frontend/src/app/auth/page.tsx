@@ -63,7 +63,7 @@ export default function AuthPage() {
     return (
         <div className="min-h-screen flex items-center justify-center bg-[--color-3]">
             <ToastContainer aria-label="Notification" />
-            <div className="bg-white p-8 shadow-2xl rounded-xl w-full max-w-md">
+            <div className="bg-white p-8 shadow-2xl rounded-xl w-full max-w-md m-4">
                 {/* Logo */}
                 <div className="flex justify-center mb-6">
                     <Image

@@ -45,7 +45,7 @@ const NavBar = () => {
                         ) : (
                             <Link
                                 href="/auth"
-                                className="whitespace-nowrap text-base sm:text-xl text-white px-2 sm:px-4 py-1 rounded-3xl hover:bg-orange-400 transition-colors mb-4 sm:mb-0 mt-4 sm:mt-0 w-full sm:w-auto text-center"
+                                className="whitespace-nowrap text-base sm:text-xl text-white px-2 sm:px-4 py-1 rounded-3xl hover:bg-orange-400 transition-colors mb-4 sm:mb-0 mt-4 mr-2 sm:mt-0 w-full sm:w-auto text-center"
                             >
                                 Sign In
                             </Link>
