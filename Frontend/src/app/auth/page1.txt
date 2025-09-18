@@ -1,0 +1,195 @@
+"use client";
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { signIn, signUp } from "@/lib/auth";
+import { auth } from "@/lib/firebase";
+import Image from "next/image";
+import { ToastContainer, toast } from "react-toastify";
+import { Eye, EyeOff } from "lucide-react";
+import { sendPasswordResetEmail } from "firebase/auth";
+import "react-toastify/dist/ReactToastify.css";
+
+export default function AuthPage() {
+    const [isSignUp, setIsSignUp] = useState(false);
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
+    const router = useRouter();
+
+    const handleSubmit = async (e?: React.FormEvent) => {
+        e?.preventDefault();
+        setErrorMessage("");
+
+        if (!email || !password) {
+            const msg = "Please fill in all fields.";
+            setErrorMessage(msg);
+            toast.warning(msg, { position: "bottom-right" });
+            return;
+        }
+
+        if (isSignUp && password !== confirmPassword) {
+            const msg = "Passwords do not match. Please try again.";
+            setErrorMessage(msg);
+            toast.error(msg, { position: "bottom-right" });
+            return;
+        }
+
+        try {
+            setLoading(true);
+
+            if (isSignUp) {
+                await signUp(email, password);
+                toast.success("Account created successfully. Please Sign-In 😊", {
+                    position: "bottom-right",
+                });
+                setIsSignUp(false);
+                setPassword("");
+                setConfirmPassword("");
+            } else {
+                await signIn(email, password);
+                router.push("/");
+            }
+        } catch (err: any) {
+            console.log(err.message);
+            setErrorMessage(err.message);
+            toast.error(err.message, { position: "bottom-right" });
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleForgotPassword = async () => {
+        if (!email) {
+            toast.warning("Please enter your email first.", { position: "bottom-right" });
+            return;
+        }
+        try {
+            await sendPasswordResetEmail(auth, email);
+            toast.success("Password reset email sent! Check your inbox.", {
+                position: "bottom-right",
+            });
+        } catch (err: any) {
+            console.error(err);
+            toast.error(err.message, { position: "bottom-right" });
+        }
+    };
+
+    return (
+        <div className="min-h-screen flex items-center justify-center bg-[--color-3]">
+            <ToastContainer aria-label="Notification" />
+            <div className="bg-white p-8 shadow-2xl rounded-xl w-full max-w-md">
+                {/* Logo */}
+                <div className="flex justify-center mb-6">
+                    <Image
+                        src="/images/logo1.jpg"
+                        alt="Logo"
+                        width={150}
+                        height={150}
+                        className="rounded"
+                    />
+                </div>
+
+                <h2 className="text-2xl font-bold text-center text-[--color-5] mb-6">
+                    {isSignUp ? "Create Account" : "Welcome Back"}
+                </h2>
+
+                <form onSubmit={handleSubmit}>
+                    <input
+                        type="email"
+                        placeholder="Email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        className="border w-full p-3 mb-4 rounded-lg focus:ring-2 focus:ring-[--color-3] outline-none"
+                    />
+
+                    {/* Password */}
+                    <div className="relative mb-4">
+                        <input
+                            type={showPassword ? "text" : "password"}
+                            placeholder="Password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            className="border w-full p-3 pr-10 rounded-lg focus:ring-2 focus:ring-[--color-3] outline-none"
+                        />
+                        <button
+                            type="button"
+                            onClick={() => setShowPassword(!showPassword)}
+                            className="absolute right-3 top-3 text-gray-500 hover:text-gray-700"
+                        >
+                            {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                        </button>
+                    </div>
+
+                    {/* Confirm password */}
+                    {isSignUp && (
+                        <div className="relative mb-4">
+                            <input
+                                type={showConfirmPassword ? "text" : "password"}
+                                placeholder="Re-enter Password"
+                                value={confirmPassword}
+                                onChange={(e) => setConfirmPassword(e.target.value)}
+                                className="border w-full p-3 pr-10 rounded-lg focus:ring-2 focus:ring-[--color-3] outline-none"
+                            />
+                            <button
+                                type="button"
+                                onClick={() =>
+                                    setShowConfirmPassword(!showConfirmPassword)
+                                }
+                                className="absolute right-3 top-3 text-gray-500 hover:text-gray-700"
+                            >
+                                {showConfirmPassword ? (
+                                    <EyeOff size={20} />
+                                ) : (
+                                    <Eye size={20} />
+                                )}
+                            </button>
+                        </div>
+                    )}
+
+                    {/* Inline error */}
+                    {errorMessage && (
+                        <p className="text-red-500 text-sm mb-4">{errorMessage}</p>
+                    )}
+
+                    <button
+                        type="submit"
+                        disabled={loading}
+                        className="bg-orange-400 text-white w-full py-3 rounded-lg font-semibold hover:opacity-90 transition disabled:opacity-50"
+                    >
+                        {loading ? "Processing..." : isSignUp ? "Sign Up" : "Sign In"}
+                    </button>
+                </form>
+
+                {/* Forgot password (only on Sign In) */}
+                {!isSignUp && (
+                    <p className="mt-4 text-center">
+                        <button
+                            onClick={handleForgotPassword}
+                            className="text-sm text-[--color-5] hover:underline"
+                        >
+                            Forgot password?
+                        </button>
+                    </p>
+                )}
+
+                {/* Switch form */}
+                <p className="mt-6 text-center text-sm text-gray-600">
+                    {isSignUp
+                        ? "Already have an account?"
+                        : "Don't have an account?"}{" "}
+                    <button
+                        onClick={() => setIsSignUp(!isSignUp)}
+                        className="text-[--color-5] font-medium hover:underline"
+                    >
+                        {isSignUp ? "Sign In" : "Sign Up"}
+                    </button>
+                </p>
+            </div>
+        </div>
+    );
+}
