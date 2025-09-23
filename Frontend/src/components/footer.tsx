@@ -67,7 +67,7 @@ const Footer = () => {
                 </div>
             </div>
             <div className='w-full h-[1px] bg-[--color-7] my-8'></div>
-            <p className='text-white text-center'>© 2025 All Rights Reserved by Intelligent Bioinformatics and Omics Laboratory™ | developed by <a className='underline text-blue-500' target='_blank' href='https://github.com/srniloy'>SRN</a></p>
+            <p className='text-white text-center'>© 2025 All Rights Reserved by Intelligent Bioinformatics and Omics Laboratory™ | developed by <a className='underline text-blue-500' target='_blank' href='https://github.com/srniloy'>SRN</a> and <a className='underline text-blue-500' target='_blank' href='https://github.com/skupperr'>ASIF</a></p>
         </div>
     </div>
   )
