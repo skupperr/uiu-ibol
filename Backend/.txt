@@ -3,9 +3,9 @@
 
 $i++;
 $cfg['Servers'][$i]['verbose'] = 'Aiven MySQL';
-$cfg['Servers'][$i]['host'] = 'mysql-uiu-ibol-skupperr-uiu-ibol.e.aivencloud.com';
-$cfg['Servers'][$i]['port'] = '14443';
-$cfg['Servers'][$i]['user'] = 'avnadmin';
-$cfg['Servers'][$i]['password'] = 'AVNS_4-PHL5jJ6DVuTf5ZU3O';
+$cfg['Servers'][$i]['host'] = '';
+$cfg['Servers'][$i]['port'] = '';
+$cfg['Servers'][$i]['user'] = '';
+$cfg['Servers'][$i]['password'] = '';
 $cfg['Servers'][$i]['ssl'] = true;
 $cfg['Servers'][$i]['ssl_ca'] = 'C:\\xampp\\phpMyAdmin\\certs\\ca.pem';
