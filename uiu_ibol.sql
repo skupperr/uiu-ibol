@@ -2,9 +2,9 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: mysql-uiu-ibol-skupperr-uiu-ibol.e.aivencloud.com:14443
--- Generation Time: Sep 24, 2025 at 05:15 AM
--- Server version: 8.0.35
+-- Host: 127.0.0.1
+-- Generation Time: Sep 18, 2025 at 11:55 AM
+-- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -28,14 +28,15 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `news_and_event` (
-  `id` int NOT NULL,
-  `type` varchar(10) COLLATE utf8mb4_general_ci NOT NULL,
-  `title` varchar(200) COLLATE utf8mb4_general_ci NOT NULL,
-  `description` text COLLATE utf8mb4_general_ci NOT NULL,
-  `link_title` text COLLATE utf8mb4_general_ci NOT NULL,
-  `link` text COLLATE utf8mb4_general_ci NOT NULL,
-  `authors` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `time_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `id` int(11) NOT NULL,
+  `type` varchar(10) NOT NULL,
+  `title` varchar(200) NOT NULL,
+  `description` text NOT NULL,
+  `link_title` text NOT NULL,
+  `link` text NOT NULL,
+  `authors` varchar(100) NOT NULL,
+  `time_date` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -54,11 +55,12 @@ INSERT INTO `news_and_event` (`id`, `type`, `title`, `description`, `link_title`
 --
 
 CREATE TABLE `publications` (
-  `id` int NOT NULL,
-  `title` text COLLATE utf8mb4_general_ci NOT NULL,
-  `abstract` text COLLATE utf8mb4_general_ci NOT NULL,
-  `link` text COLLATE utf8mb4_general_ci NOT NULL,
-  `date` date NOT NULL
+  `id` int(11) NOT NULL,
+  `title` text NOT NULL,
+  `abstract` text NOT NULL,
+  `link` text NOT NULL,
+  `date` date NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -78,9 +80,10 @@ INSERT INTO `publications` (`id`, `title`, `abstract`, `link`, `date`) VALUES
 --
 
 CREATE TABLE `publication_authors` (
-  `id` int NOT NULL,
-  `publication_id` int DEFAULT NULL,
-  `author_name` text COLLATE utf8mb4_general_ci
+  `id` int(11) NOT NULL,
+  `publication_id` int(11) DEFAULT NULL,
+  `author_name` text DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -110,12 +113,13 @@ INSERT INTO `publication_authors` (`id`, `publication_id`, `author_name`) VALUES
 --
 
 CREATE TABLE `research` (
-  `id` int NOT NULL,
-  `type` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-  `title` varchar(500) COLLATE utf8mb4_general_ci NOT NULL,
-  `description` text COLLATE utf8mb4_general_ci NOT NULL,
-  `img_link` text COLLATE utf8mb4_general_ci,
-  `time_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `id` int(11) NOT NULL,
+  `type` varchar(50) NOT NULL,
+  `title` varchar(500) NOT NULL,
+  `description` text NOT NULL,
+  `img_link` text DEFAULT NULL,
+  `time_date` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -136,9 +140,10 @@ INSERT INTO `research` (`id`, `type`, `title`, `description`, `img_link`, `time_
 --
 
 CREATE TABLE `research_image` (
-  `id` int NOT NULL,
-  `research_id` int DEFAULT NULL,
-  `img_link` text COLLATE utf8mb4_general_ci
+  `id` int(11) NOT NULL,
+  `research_id` int(11) DEFAULT NULL,
+  `img_link` text DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -155,10 +160,11 @@ INSERT INTO `research_image` (`id`, `research_id`, `img_link`) VALUES
 --
 
 CREATE TABLE `roles` (
-  `id` int NOT NULL,
-  `role_name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `position` int NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `id` int(11) NOT NULL,
+  `role_name` varchar(255) NOT NULL,
+  `position` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -166,6 +172,7 @@ CREATE TABLE `roles` (
 --
 
 INSERT INTO `roles` (`id`, `role_name`, `position`, `created_at`) VALUES
+(4, 'Team Lead', 3, '2025-09-09 08:11:56'),
 (5, 'Student', 4, '2025-09-09 08:12:02'),
 (6, 'MAIN TEAM LEAD', 2, '2025-09-09 12:53:31');
 
@@ -176,9 +183,10 @@ INSERT INTO `roles` (`id`, `role_name`, `position`, `created_at`) VALUES
 --
 
 CREATE TABLE `role_assignments` (
-  `id` int NOT NULL,
-  `role_id` int NOT NULL,
-  `user_id` varchar(128) COLLATE utf8mb4_general_ci NOT NULL
+  `id` int(11) NOT NULL,
+  `role_id` int(11) NOT NULL,
+  `user_id` varchar(128) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -195,18 +203,19 @@ INSERT INTO `role_assignments` (`id`, `role_id`, `user_id`) VALUES
 --
 
 CREATE TABLE `users` (
-  `id` int NOT NULL,
-  `uid` varchar(128) COLLATE utf8mb4_general_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `account_type` varchar(20) COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'regular',
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `name` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `profile_tag` text COLLATE utf8mb4_general_ci,
-  `img_link` text COLLATE utf8mb4_general_ci,
-  `linkedin` text COLLATE utf8mb4_general_ci,
-  `github` text COLLATE utf8mb4_general_ci,
-  `research_gate` text COLLATE utf8mb4_general_ci,
-  `google_scholar` text COLLATE utf8mb4_general_ci
+  `id` int(11) NOT NULL,
+  `uid` varchar(128) NOT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `account_type` varchar(20) NOT NULL DEFAULT 'regular',
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `name` varchar(50) DEFAULT NULL,
+  `profile_tag` text DEFAULT NULL,
+  `img_link` text DEFAULT NULL,
+  `linkedin` text DEFAULT NULL,
+  `github` text DEFAULT NULL,
+  `research_gate` text DEFAULT NULL,
+  `google_scholar` text DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -223,46 +232,37 @@ INSERT INTO `users` (`id`, `uid`, `email`, `account_type`, `created_at`, `name`,
 --
 -- Indexes for table `news_and_event`
 --
-ALTER TABLE `news_and_event`
-  ADD PRIMARY KEY (`id`);
+
 
 --
 -- Indexes for table `publications`
 --
-ALTER TABLE `publications`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `publication_authors`
 --
 ALTER TABLE `publication_authors`
-  ADD PRIMARY KEY (`id`),
   ADD KEY `fk_publication_authors_publications` (`publication_id`);
 
 --
 -- Indexes for table `research`
 --
-ALTER TABLE `research`
-  ADD PRIMARY KEY (`id`);
+
 
 --
 -- Indexes for table `research_image`
 --
 ALTER TABLE `research_image`
-  ADD PRIMARY KEY (`id`),
   ADD KEY `fk_research_image_research` (`research_id`);
 
 --
 -- Indexes for table `roles`
 --
-ALTER TABLE `roles`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `role_assignments`
 --
 ALTER TABLE `role_assignments`
-  ADD PRIMARY KEY (`id`),
   ADD KEY `role_id` (`role_id`),
   ADD KEY `user_id` (`user_id`);
 
@@ -270,7 +270,6 @@ ALTER TABLE `role_assignments`
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `uid` (`uid`);
 
 --
@@ -281,49 +280,49 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `news_and_event`
 --
 ALTER TABLE `news_and_event`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `publications`
 --
 ALTER TABLE `publications`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `publication_authors`
 --
 ALTER TABLE `publication_authors`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 
 --
 -- AUTO_INCREMENT for table `research`
 --
 ALTER TABLE `research`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `research_image`
 --
 ALTER TABLE `research_image`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `role_assignments`
 --
 ALTER TABLE `role_assignments`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- Constraints for dumped tables
