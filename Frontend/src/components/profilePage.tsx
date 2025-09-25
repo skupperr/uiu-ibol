@@ -66,9 +66,9 @@ const profile = () => {
                 scholar: backendUser.google_scholar || "",
                 researchgate: backendUser.research_gate || "",
                 image: null,
-                existingImage: backendUser.img_link || null,
+                existingImage: null,
             });
-            setPreview(backendUser.img_link || null);
+            setPreview(null);
             setIsLoading(false); // user loaded
         } else {
             router.replace("/auth");
@@ -189,13 +189,13 @@ const profile = () => {
                                     <p className="text-white text-sm">Change</p>
                                 </div>
                             )}
-                            <input
+                            {/* <input
                                 id="fileInput"
                                 type="file"
                                 accept="image/*"
                                 className="hidden"
                                 onChange={handleFileChange}
-                            />
+                            /> */}
                         </div>
 
 
