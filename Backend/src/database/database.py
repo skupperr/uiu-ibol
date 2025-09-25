@@ -10,11 +10,15 @@ load_dotenv()
 _pool: Optional[aiomysql.Pool] = None
 
 DB_CONFIG = {
-    "host": os.getenv('HOST'),
-    "port": int(os.getenv('DB_PORT')),
-    "user": os.getenv('USER'),
-    "password": os.getenv('PASSWORD'),
-    "db": os.getenv('DB'),
+    # "host": os.getenv('HOST'),
+    # "port": int(os.getenv('DB_PORT')),
+    # "user": os.getenv('USER'),
+    # "password": os.getenv('PASSWORD'),
+    # "db": os.getenv('DB'),
+    "host": "localhost",
+    "user": "root",
+    "password": "",
+    "db": "uiu_ibol",
     "minsize": 1,
     "maxsize": 5,
     "autocommit": True,  # we'll explicitly commit/rollback

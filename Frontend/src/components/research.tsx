@@ -305,7 +305,7 @@ const Research = () => {
                                     <div key={item.id} className='flex flex-col-reverse lg:flex-row-reverse w-full p-4 md:p-6 border-[1px] shadow-xl rounded-lg gap-5'>
 
                                         {/* Image container */}
-                                        {(item.images && item.images.length > 0) ? (
+                                        {/* {(item.images && item.images.length > 0) ? (
                                             <ProjectImages images={item.images} />
                                         ) : item.img_link ? (
                                             <div className='w-full sm:w-full md:w-[70%] lg:w-[50%] overflow-hidden flex justify-center items-center'>
@@ -318,7 +318,7 @@ const Research = () => {
                                                     className='w-full h-min object-cover rounded-md border-2 border-[--color-8]'
                                                 />
                                             </div>
-                                        ) : null}
+                                        ) : null} */}
 
                                         {/* Text container */}
                                         <div className={`w-full ${(item.img_link || (item.images && item.images.length > 0)) ? 'lg:w-[50%]' : ''} flex flex-col gap-2`}>
@@ -370,7 +370,7 @@ const Research = () => {
                             onChange={handleChange}
                             className="w-full border p-2 rounded mb-3"
                         />
-                        <input
+                        {/* <input
                             type="file"
                             accept="image/*"
                             onChange={handleFileChange}
@@ -378,7 +378,7 @@ const Research = () => {
                             multiple
                         />
 
-                        {/* Preview new uploads */}
+                        
                         {previewList.length > 0 && (
                             <div className="mb-4">
                                 <p className="text-sm text-gray-600 mb-2">Preview (new uploads):</p>
@@ -390,7 +390,7 @@ const Research = () => {
                             </div>
                         )}
 
-                        {/* Existing images (edit) */}
+                        
                         {form.existingImages.length > 0 && (
                             <div className="mt-4">
                                 <p className="text-sm text-gray-600 mb-2">Current Images:</p>
@@ -412,7 +412,7 @@ const Research = () => {
                                     ))}
                                 </div>
                             </div>
-                        )}
+                        )} */}
 
                         <div className="flex justify-end gap-2 mt-4">
                             <button
