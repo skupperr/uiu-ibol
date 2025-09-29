@@ -313,9 +313,9 @@ const People = () => {
                             <div className="flex gap-x-44 gap-y-6 flex-wrap justify-center">
                                 {role.peoples.map((people) => (
                                     <div key={people.id} className="flex flex-col items-center relative">
-                                        <div className="w-[150px] h-[150px] rounded-full overflow-hidden border-[2px] border-[--color-3]">
+                                        {/* <div className="w-[150px] h-[150px] rounded-full overflow-hidden border-[2px] border-[--color-3]">
                                             <Image src={people.photo} alt={people.name} width={150} height={150} className="w-full h-full object-cover" />
-                                        </div>
+                                        </div> */}
                                         <h3 className="text-xl font-[600] text-[--color-p] mt-3">{people.name}</h3>
                                         <h4 className="text-base text-[--color-5] opacity-80">{people.position}</h4>
                                         {backendUser?.account_type === 'admin' && (
